@@ -35,7 +35,6 @@ class TransfersController extends AppController
             }
             $this->Flash->error(__('The transfer could not be saved. Please, try again.'));
         }
-        $users = $this->Transfers->Users->find('list', ['limit' => 200]);
-        $this->set(compact('transfer', 'users'));
+        $this->set(compact('transfer'));
     }
 }
