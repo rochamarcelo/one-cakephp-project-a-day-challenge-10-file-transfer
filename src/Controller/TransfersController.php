@@ -42,7 +42,7 @@ class TransfersController extends AppController
                     $transfer,
                     $identity,
                 ]);
-                $this->Flash->success(__('We sent the file to email {0}', $transfer->email_to);
+                $this->Flash->success(__('We sent the file to email {0}', $transfer->email_to));
             } else {
                 $this->Flash->error(__('The transfer could not be saved. Please, try again.'));
             }
