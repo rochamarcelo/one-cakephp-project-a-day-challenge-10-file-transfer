@@ -137,6 +137,13 @@ return [
             'bypassAuth' => true,
         ],
         [
+            'role' => '*',
+            'prefix' => false,
+            'controller' => 'Transfers',
+            'action' => ['download'],
+            'bypassAuth' => true,
+        ],
+        [
             'role' => 'user',
             'prefix' => false,
             'controller' => 'Transfers',

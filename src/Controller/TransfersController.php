@@ -37,4 +37,26 @@ class TransfersController extends AppController
         }
         $this->set(compact('transfer'));
     }
+
+    /**
+     * @param string $id
+     * @param string $securityKey
+     */
+    public function download(string $id, string $securityKey)
+    {
+        $transfer = $this->Transfers->find()
+            ->where([
+                'id' => $id,
+                'security_key' => $securityKey,
+            ])
+            ->firstOrFail();
+
+        if ($this->request->is(['post', 'put'])) {
+            $file = ROOT . DS . 'files' . DS . $transfer->user_id . DS . $transfer->file;
+
+            return $this->response->withFile($file)
+                ->withDownload($transfer->file);
+        }
+        $this->set(compact('transfer'));
+    }
 }
