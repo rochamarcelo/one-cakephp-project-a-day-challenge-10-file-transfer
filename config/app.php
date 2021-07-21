@@ -225,7 +225,7 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
+            'className' => \Cake\Mailer\Transport\SmtpTransport::class,
             /*
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
