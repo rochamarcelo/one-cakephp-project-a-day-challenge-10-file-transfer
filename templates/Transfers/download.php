@@ -25,4 +25,4 @@
         'class' => 'btn btn-lg btn-primary btn-block',
     ]) ?>
     <?= $this->Form->end() ?>
-</div>x
+</div>
