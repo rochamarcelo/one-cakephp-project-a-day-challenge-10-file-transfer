@@ -140,7 +140,7 @@ return [
             'role' => '*',
             'prefix' => false,
             'controller' => 'Transfers',
-            'action' => ['download'],
+            'action' => ['download', 'home'],
             'bypassAuth' => true,
         ],
         [

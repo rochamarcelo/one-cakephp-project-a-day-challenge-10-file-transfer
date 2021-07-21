@@ -14,6 +14,17 @@ use Cake\Mailer\MailerAwareTrait;
 class TransfersController extends AppController
 {
     use MailerAwareTrait;
+
+    /**
+     * @return \Cake\Http\Response|null
+     */
+    public function home()
+    {
+        if ($this->request->getAttribute('identity')) {
+            return $this->redirect(['action' => 'add']);
+        }
+    }
+
     /**
      * Add method
      *
