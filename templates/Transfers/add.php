@@ -18,7 +18,7 @@
         'type' => 'file',
         'class' => 'form-signin',
         'templates' => [
-            'inputContainer' =>'<div{{containerAttrs}} class="{{containerClass}}form-label-group {{type}}{{required}}">{{content}}</div>',
+            'inputContainer' =>'<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}">{{content}}</div>',
         ],
     ]) ?>
     <?php
@@ -29,7 +29,6 @@
     ]);
     echo $this->Form->control('email_to', [
         'type' => 'email',
-
     ]);
     ?>
     <?= $this->Form->button(__('Send File'), [

@@ -22,6 +22,7 @@ class TransfersController extends AppController
         $transfer = $this->Transfers->newEmptyEntity();
         if ($this->request->is('post')) {
             $transfer = $this->Transfers->patchEntity($transfer, $this->request->getData());
+            $transfer->user_id = $this->request->getAttribute('identity')['id'];
             if ($this->Transfers->save($transfer)) {
                 $this->Flash->success(__('The transfer has been saved.'));
 

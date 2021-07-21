@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\File\Path\UserProcessor;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -46,7 +48,20 @@ class TransfersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+            'file' => [
+                'fields' => [
+                    'dir' => 'file_id',
+                ],
+                'path' => 'files{DS}{field-value:user_id}{DS}',
+                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
+                    $ext = pathinfo($data->getClientFilename(), PATHINFO_EXTENSION);
 
+                    return Text::uuid() . '.' . $ext;
+                },
+            ],
+
+        ]);
         $this->belongsTo('Users', [
             'className' => 'CakeDC/Users.Users',
             'foreignKey' => 'user_id',
@@ -65,18 +80,6 @@ class TransfersTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-
-        $validator
-            ->scalar('file')
-            ->maxLength('file', 255)
-            ->requirePresence('file', 'create')
-            ->notEmptyFile('file');
-
-        $validator
-            ->scalar('file_dir')
-            ->maxLength('file_dir', 255)
-            ->requirePresence('file_dir', 'create')
-            ->notEmptyFile('file_dir');
 
         $validator
             ->scalar('email_to')
