@@ -136,5 +136,11 @@ return [
             'action' => '*',
             'bypassAuth' => true,
         ],
+        [
+            'role' => 'user',
+            'prefix' => false,
+            'controller' => 'Transfers',
+            'action' => ['add'],
+        ]
     ]
 ];

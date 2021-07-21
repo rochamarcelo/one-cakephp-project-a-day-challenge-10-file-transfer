@@ -48,6 +48,7 @@ class TransfersTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Users', [
+            'className' => 'CakeDC/Users.Users',
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
