@@ -4,9 +4,12 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\File\Path\UserProcessor;
+use App\Model\Entity\Transfer;
+use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Security;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
@@ -102,5 +105,15 @@ class TransfersTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
+    }
+
+    /**
+     * @param Event $event
+     * @param Transfer $transfer
+     */
+    public function beforeSave(Event $event, Transfer $transfer)
+    {
+        $token = Security::randomString(16) . '-' . time() . $transfer->user_id;
+        $transfer->security_key = Security::hash($token);
     }
 }

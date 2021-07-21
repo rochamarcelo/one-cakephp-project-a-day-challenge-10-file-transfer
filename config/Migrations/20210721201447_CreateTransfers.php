@@ -14,7 +14,10 @@ class CreateTransfers extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('transfers');
+        $table = $this->table('transfers', ['id' => false, 'primary_key' => ['id']]);
+        $table->addColumn('id', 'uuid', [
+            'null' => false,
+        ]);
         $table->addColumn('file', 'string', [
             'default' => null,
             'limit' => 255,

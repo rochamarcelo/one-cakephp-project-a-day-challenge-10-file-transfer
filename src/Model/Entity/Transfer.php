@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string $user_id
  * @property string $email_to
  * @property \Cake\I18n\FrozenTime $created
+ * @property string $security_key
  *
  * @property \CakeDC\Users\Model\Entity\User $user
  */
