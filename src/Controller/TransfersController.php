@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Mailer\MailerAwareTrait;
+
 /**
  * Transfers Controller
  *
@@ -11,7 +13,7 @@ namespace App\Controller;
  */
 class TransfersController extends AppController
 {
-
+    use MailerAwareTrait;
     /**
      * Add method
      *
@@ -22,11 +24,14 @@ class TransfersController extends AppController
         $transfer = $this->Transfers->newEmptyEntity();
         if ($this->request->is('post')) {
             $transfer = $this->Transfers->patchEntity($transfer, $this->request->getData());
-            $transfer->user_id = $this->request->getAttribute('identity')['id'];
+            $identity = $this->request->getAttribute('identity');
+            $transfer->user_id = $identity['id'];
             if ($this->Transfers->save($transfer)) {
+                $this->getMailer('Transfer')->send('uploaded', [
+                    $transfer,
+                    $identity,
+                ]);
                 $this->Flash->success(__('The transfer has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The transfer could not be saved. Please, try again.'));
         }
